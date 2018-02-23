@@ -1,0 +1,24 @@
+<%# app/views/shared/_list.html.erb %>
+<div id="filterrific_results">
+
+ <!-- <div>
+    <%# page_entries_info items # provided by will_paginate %>
+  </div> -->
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Total Inventory</th>
+      <th>Category</th>
+    </tr>
+    <% items.each do |item| %>
+      <tr>
+        <td><%= link_to(item.name, item_path(item)) %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.category.name %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%# will_paginate items # provided by will_paginate %>

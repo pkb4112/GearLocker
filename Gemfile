@@ -32,6 +32,10 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'bootstrap'
 gem 'jquery-rails'
+gem 'filterrific'
+gem 'will_paginate'
+
+
 
 
 
