@@ -12,6 +12,12 @@ class MembersController < ApplicationController
   def show
   end
 
+  #Show list of checked_out_items for the member
+  def items 
+    @member = Member.find(params[:id])
+    @items = @member.get_items
+  end
+
   # GET /members/new
   def new
     @member = Member.new
@@ -71,4 +77,6 @@ class MembersController < ApplicationController
     def member_params
       params.require(:member).permit(:peoplesoft_number, :email, :active)
     end
+
+    
 end

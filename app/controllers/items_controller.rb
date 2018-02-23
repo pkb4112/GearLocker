@@ -16,6 +16,12 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
   end
+  
+  #To show list of checked out items
+  # GET /items/checked_out
+  def checked_out
+    @items = Item.get_checked_out_items
+  end
 
   # GET /items/1/edit
   def edit
