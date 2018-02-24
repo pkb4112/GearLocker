@@ -3,11 +3,14 @@ Rails.application.routes.draw do
   resources :items do 
   	collection do 
   		get 'checked_out'
+      get 'available_items' 
   	end
   end
+
   resources :categories
   resources :members do 
-  		get 'items', on: :member #This is the rails member, not UCOC Member
+      get 'checkout', on: :member #This is the rails member, not UCOC Member
+  		get 'items', on: :member 
   	end
  
 

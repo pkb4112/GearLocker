@@ -15,5 +15,15 @@
   <%= @member.active %>
 </p>
 
-<%= link_to 'Edit', edit_member_path(@member) %> |
+<%= link_to 'Check Out Items', checkout_member_path(@member) %> 
+<%= link_to 'Edit', edit_member_path(@member) %> 
 <%= link_to 'Back', members_path %>
+
+<br>
+<br>
+
+
+<%= render(
+  partial: 'items/checked_out',
+  locals: { items: @items }
+) %>

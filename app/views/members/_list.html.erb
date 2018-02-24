@@ -1,0 +1,24 @@
+<%# app/views/students/_list.html.erb %>
+<div id="filterrific_results">
+
+  <div>
+    <%# page_entries_info students # provided by will_paginate %>
+  </div>
+
+  <table>
+    <tr>
+      <th>Peoplesoft Number</th>
+      <th>Email</th>
+      <th>Active Member</th>
+    </tr>
+    <% members.each do |member| %>
+      <tr>
+        <td><%= link_to(member.peoplesoft_number, member_path(member)) %></td>
+        <td><%= member.email %></td>
+        <td><%= member.active %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%# will_paginate students # provided by will_paginate %>

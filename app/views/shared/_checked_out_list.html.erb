@@ -8,7 +8,11 @@
   <table>
     <tr>
       <th>Name</th>
-      <th>Total Inventory</th>
+      <% if params[:id] %>
+        <th>Checked Out To Member Qty</th>
+      <%else%>
+         <th>Checked Out Qty</th>
+      <%end%>
       <th>Category</th>
       <% if params[:id] %>
         <th>Action</th>
@@ -18,7 +22,11 @@
     <% items.each do |item| %>
       <tr>
         <td><%= link_to(item.name, item_path(item)) %></td>
-        <td><%= item.quantity %></td>
+        <% if params[:id] %>
+          <td><%= item.checked_out_to_member_quantity(params[:id]) %></td>
+        <%else%>
+          <td><%= item.checked_out_quantity %></td>
+        <%end%>
         <td><%= item.category.name %></td>
         <% if params[:id] %>
           <td>check in</td>

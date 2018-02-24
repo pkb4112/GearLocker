@@ -11,13 +11,23 @@
 </p>
 
 <p>
-  <strong>Quantity:</strong>
+  <strong>Total Inventory:</strong>
   <%= @item.quantity %>
 </p>
 
 <p>
+  <strong>Available Quantity:</strong>
+  <%= @item.available_quantity %>
+</p>
+
+<p>
+  <strong>Checked Out:</strong>
+  <%= @item.checked_out_quantity %>
+</p>
+
+<p>
   <strong>Category:</strong>
-  <%= @item.category_id %>
+  <%= @item.category.name %>
 </p>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |

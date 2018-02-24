@@ -1,6 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h4>Available Items</h4>
 
-<h1>Members</h1>
+
 
 <%#
   Filterrific adds the `form_for_filterrific` view helper:
@@ -24,10 +24,6 @@
     <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by]) %>
   </div>
   <div>
-    Active Members Only
-    <%= f.check_box( :with_active ) %>
-  </div>
-  <div>
     <%= link_to(
       'Reset filters',
       reset_filterrific_url,
@@ -38,10 +34,6 @@
 <% end %>
 
 <%= render(
-  partial: 'list',
-  locals: { members: @members }
+  partial: 'shared/available_items_list',
+  locals: { items: @items }
 ) %>
-
-<br>
-
-<%= link_to 'New Member', new_member_path %>

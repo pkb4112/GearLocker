@@ -13,6 +13,18 @@ class Item < ApplicationRecord
 	has_many :members, through: :checked_out_items
 
 
+  scope :checked_out, -> { 
+   joins(:checked_out_items)
+  }
+
+  scope :checked_in, -> {
+  	#Item.where
+   where("(items.quantity - (SELECT COUNT(*) FROM items INNER JOIN checked_out_items ON items.id = checked_out_items.item_id)) > 0 ")
+  }
+
+  scope :member_items, lambda { |id|
+  where('member_id = ?', id)
+  }
 
 	scope :sorted_by, lambda { |sort_option|
 	  # extract the sort direction from the param value.
@@ -30,7 +42,7 @@ class Item < ApplicationRecord
 	  else
 	    raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
 	  end
-}
+  }
 
 	def self.options_for_sorted_by
     [
@@ -67,15 +79,9 @@ class Item < ApplicationRecord
       "(LOWER(items.name) LIKE ? OR LOWER(items.name) LIKE ?)"
     }.join(' OR '),
     *terms.map { |term| [term] * num_or_conds }.flatten
-  )
-}
+    )
+  }
  
-
-
-
-
-
-
 
 
 
@@ -88,7 +94,12 @@ class Item < ApplicationRecord
 	end
 
 	def checked_out_quantity 
-		quantity = CheckedOutItem.count(self.id)
+		quantity = CheckedOutItem.where("item_id = ?",self.id).count
+	end
+
+	def checked_out_to_member_quantity(id)
+		member = Member.find(id)
+		quantity = CheckedOutItem.where("member_id = ?", id).count(self.id)
 	end
 
 end

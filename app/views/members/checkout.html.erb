@@ -1,0 +1,18 @@
+<p>
+  <strong>Peoplesoft number:</strong>
+  <%= @member.peoplesoft_number %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @member.email %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @member.active %>
+</p>
+
+<%= link_to 'Back', member_path(@member) %>
+
+<%=render template: 'items/available_items'%>

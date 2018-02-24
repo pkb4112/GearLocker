@@ -8,7 +8,7 @@
   <table>
     <tr>
       <th>Name</th>
-      <th>Total Inventory</th>
+      <th>Available Qty</th>
       <th>Category</th>
       <% if params[:id] %>
         <th>Action</th>
@@ -18,10 +18,10 @@
     <% items.each do |item| %>
       <tr>
         <td><%= link_to(item.name, item_path(item)) %></td>
-        <td><%= item.quantity %></td>
+        <td><%= item.available_quantity %></td>
         <td><%= item.category.name %></td>
         <% if params[:id] %>
-          <td>check in</td>
+          <td>check out</td>
         <%end%>
       </tr>
     <% end %>
