@@ -8,8 +8,7 @@
   <table>
     <tr>
       <th>Name</th>
-      <th>Available Qty</th>
-      <th>Category</th>
+      <th>Qty</th>
       <% if params[:id] %>
         <th>Action</th>
       <%end%>
@@ -21,7 +20,7 @@
         <td><%= item.available_quantity %></td>
         <td><%= item.category.name %></td>
         <% if params[:id] %>
-          <td><%= link_to "Check Out", checkout_member_path(item_id: item.id), method: "post"  %></td>
+          <td>Delete</td>
         <%end%>
       </tr>
     <% end %>

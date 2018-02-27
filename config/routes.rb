@@ -8,10 +8,14 @@ Rails.application.routes.draw do
   end
 
   resources :categories
+
   resources :members do 
       get 'checkout', on: :member #This is the rails member, not UCOC Member
+      post 'checkout', to: "items#checkout_item", on: :member
   		get 'items', on: :member 
   	end
+
+     
  
 
   root 'static_pages#home'

@@ -8,9 +8,13 @@ class Member < ApplicationRecord
      :with_active
    ]
  )
+ 
 
 	has_many :checked_out_items
 	has_many :items, through: :checked_out_items
+
+	#has_many :cart_items
+	#has_many :cart_items, foreign_key: 'item_id', class_name: 'Item', through: :cart_items
 
 	scope :sorted_by, lambda { |sort_option|
 	  # extract the sort direction from the param value.
@@ -35,6 +39,7 @@ class Member < ApplicationRecord
 		return nil if 0 == flag #checkbox unchecked
 	  where(active: 1)
 	}
+
 
 	def self.options_for_sorted_by
     [
@@ -79,12 +84,12 @@ class Member < ApplicationRecord
 	}
 
 
-
-
-
 	def get_items
        @items = self.items
-   end
+  end
+
+
+  private
 
 
 end

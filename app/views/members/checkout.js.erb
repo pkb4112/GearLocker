@@ -1,5 +1,8 @@
 
 <% js = escape_javascript(
-  render(partial: 'shared/available_items_list', locals: { items: @items })
+  render(partial: 'shared/available_items_list', locals: { items: @available_items })
+  
 ) %>
 $("#filterrific_results").html("<%= js %>");
+
+

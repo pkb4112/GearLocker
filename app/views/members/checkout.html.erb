@@ -15,4 +15,10 @@
 
 <%= link_to 'Back', member_path(@member) %>
 
-<%=render template: 'items/available_items'%>
+<%=render template: 'items/available_items',
+  locals: { items: @available_items }%>
+
+  <%= render(
+  partial: 'items/checked_out',
+  locals: { items: @items }
+) %>

@@ -116,7 +116,7 @@ def index
   end
 
   def available_items
-    @filterrific = initialize_filterrific(
+    @filterrific_available_items = initialize_filterrific(
       Item,
       params[:filterrific],
       select_options: {
@@ -130,7 +130,7 @@ def index
     # NOTE: filterrific_find returns an ActiveRecord Relation that can be
     # chained with other scopes to further narrow down the scope of the list,
     # e.g., to apply permissions or to hard coded exclude certain types of records.
-    @items = @filterrific.find.checked_in.page(params[:page])
+    @available_items = @filterrific_available_items.find.checked_in.page(params[:page])
 
     # Respond to html for initial page load and to js for AJAX filter updates.
     respond_to do |format|
@@ -147,6 +147,17 @@ def index
     redirect_to(reset_filterrific_url(format: :html)) and return
 
   end
+
+  def checkout_item
+    @member = Member.find(params[:id])
+    @item = Item.find_by(id: params[:item_id])
+    @member.items << @item
+  end
+
+
+
+  
+
 
   #To show list of checked out items
   # GET /items/checked_out
@@ -181,19 +192,9 @@ def index
     # There is an issue with the persisted param_set. Reset it.
     puts "Had to reset filterrific params: #{ e.message }"
     redirect_to(reset_filterrific_url(format: :html)) and return
-  end
+  end   #Duplicate rescue existed
 
   
-
-  # Recover from invalid param sets, e.g., when a filter refers to the
-  # database id of a record that doesn’t exist any more.
-  # In this case we reset filterrific and discard all filter params.
-  rescue ActiveRecord::RecordNotFound => e
-    # There is an issue with the persisted param_set. Reset it.
-    puts "Had to reset filterrific params: #{ e.message }"
-    redirect_to(reset_filterrific_url(format: :html)) and return
-  end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

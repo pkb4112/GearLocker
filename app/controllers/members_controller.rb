@@ -106,7 +106,12 @@ class MembersController < ApplicationController
   # GET /members/:id/checkout
   def checkout
     @member = Member.find(params[:id])
-     @filterrific = initialize_filterrific(
+
+
+  
+
+
+     @filterrific_available_items = initialize_filterrific(
       Item,
       params[:filterrific],
       select_options: {
@@ -120,14 +125,50 @@ class MembersController < ApplicationController
     # NOTE: filterrific_find returns an ActiveRecord Relation that can be
     # chained with other scopes to further narrow down the scope of the list,
     # e.g., to apply permissions or to hard coded exclude certain types of records.
-    @items = @filterrific.find.checked_in.page(params[:page])
+    @available_items = @filterrific_available_items.find.checked_in.page(params[:page])
 
     # Respond to html for initial page load and to js for AJAX filter updates.
     respond_to do |format|
       format.html
       format.js
     end
+
+    @filterrific = initialize_filterrific(
+      Item,
+      params[:filterrific],
+      select_options: {
+        sorted_by: Item.options_for_sorted_by,
+      },
+      #persistence_id: 'shared_key',
+      default_filter_params: {},
+    ) or return
+    # Get an ActiveRecord::Relation for all students that match the filter settings.
+    # You can paginate with will_paginate or kaminari.
+    # NOTE: filterrific_find returns an ActiveRecord Relation that can be
+    # chained with other scopes to further narrow down the scope of the list,
+    # e.g., to apply permissions or to hard coded exclude certain types of records.
+    @items = @filterrific.find.checked_out.page(params[:page])
+
+    # Respond to html for initial page load and to js for AJAX filter updates.
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
+  # Recover from invalid param sets, e.g., when a filter refers to the
+  # database id of a record that doesn’t exist any more.
+  # In this case we reset filterrific and discard all filter params.
+  rescue ActiveRecord::RecordNotFound => e
+    # There is an issue with the persisted param_set. Reset it.
+    puts "Had to reset filterrific params: #{ e.message }"
+    redirect_to(reset_filterrific_url(format: :html)) and return
+    #Duplicate rescue existed
+
+
   end
+
+ 
+
 
   # GET /members/new
   def new

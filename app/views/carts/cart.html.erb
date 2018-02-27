@@ -1,4 +1,4 @@
-<h4>Available Items</h4>
+<h4>Checkout Cart</h4>
 
 
 
@@ -10,7 +10,7 @@
       * AJAX spinner while AJAX request is being processed
   * sets form_for options like :url, :method and input name prefix
 %>
-<%= form_for_filterrific @filterrific_available_items do |f| %>
+<%= form_for_filterrific @filterrific_cart do |f| %>
   <div>
     Search
     <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
@@ -21,7 +21,7 @@
   </div>
   <div>
     Sorted by
-    <%= f.select(:sorted_by, @filterrific_available_items.select_options[:sorted_by]) %>
+    <%= f.select(:sorted_by, @filterrific_cart.select_options[:sorted_by]) %>
   </div>
   <div>
     <%= link_to(
@@ -34,6 +34,6 @@
 <% end %>
 
 <%= render(
-  partial: 'shared/available_items_list',
-  locals: { items: @available_items }
+  partial: 'shared/cart_list',
+  locals: { items: @items }
 ) %>

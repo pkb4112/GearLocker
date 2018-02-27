@@ -9,18 +9,25 @@ class Item < ApplicationRecord
  )
 
 	belongs_to :category
+
 	has_many :checked_out_items
 	has_many :members, through: :checked_out_items
+
+	#has_many :cart_items
+	#has_many :cart_owners, foreign_key: "member_id", class_name: "Member",  through: :cart_items
+
+
 
 
   scope :checked_out, -> { 
    joins(:checked_out_items)
-  }
+     }
 
   scope :checked_in, -> {
   	#Item.where
    where("(items.quantity - (SELECT COUNT(*) FROM items INNER JOIN checked_out_items ON items.id = checked_out_items.item_id)) > 0 ")
   }
+
 
   scope :member_items, lambda { |id|
   where('member_id = ?', id)
