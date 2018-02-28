@@ -20,7 +20,7 @@ class Item < ApplicationRecord
 
 
   scope :checked_out, -> { 
-   joins(:checked_out_items)
+   joins(:checked_out_items).distinct
      }
 
   scope :checked_in, -> {
