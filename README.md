@@ -24,7 +24,7 @@ The GearLocker web application is still in the development stage and is not yet 
 
 ### Current Issues to Be Solved
 
-The app utilizes the filterrific gem to enable AJAX searching and sorting of gear items and members. Unfortunately, querying the database with "DISTINCT" conflicts with the filterrific queries, and breaks application. I am currently looking for a solution or workaround to avoid displaying duplicate entries in the items lists. 
+The app utilizes the filterrific gem to enable AJAX searching and sorting of gear items and members. Unfortunately, querying the database with "DISTINCT" conflicts with the filterrific queries, and breaks the application. I am currently looking for a solution or workaround to avoid displaying duplicate entries in the items lists. 
 
 
 
