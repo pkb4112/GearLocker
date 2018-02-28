@@ -1,5 +1,5 @@
 # GearLocker
-###(In Development)
+### (In Development)
 
 During my time at the University of Connecticut, I identified a need for an online rental management solution for the Outing Club.  Their current method for keeping track of rental gear is using paper forms, which are often inaccurate or misplaced, and the result is frequently lost and damaged gear. 
 
@@ -26,8 +26,6 @@ The GearLocker web application is still in the development stage and is not yet 
 
 The app utilizes the filterrific gem to enable AJAX searching and sorting of gear items and members. Unfortunately, querying the database with "DISTINCT" conflicts with the filterrific queries, and breaks application. I am currently looking for a solution or workaround to avoid displaying duplicate entries in the items lists. 
 
-
-```
 
 
 
